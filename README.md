@@ -1,128 +1,139 @@
-* -> GOAL:
-Project goal is to implement gradient descent with the provided formulas to train a linear regression model for predicting car prices.
+## Project Overview
 
-Linear Regression Formula: After training, you’ll use a linear function
-estimatePrice(mileage) = theta_0 + (theta_1 ∗ mileage)
+The goal of this project is to implement gradient descent to train a linear regression model that predicts car prices based on mileage. The trained model will use the formula:
 
-Implement Gradient Descent: Update the parameters (theta_0, theta_1) iteratively using the gradient descent formula provided in the subject
-tmp_theta_0=learningRate*1/m ∑_(i=0)^(m-1)▒〖(estimatePrice(mileage[i]) - price[i])〗
-tmp_theta_1=learningRate*1/m ∑_(i=0)^(m-1)▒〖((estimatePrice(mileage[i])- price[i])* mileage[i])〗
+estimatePrice(mileage) = θ₀ + (θ₁ × mileage)
 
+Where:
+- θ₀ is the intercept.
+- θ₁ is the slope.
 
-* -> PROGRAMS:
+### Gradient Descent Implementation
 
------ train.py will read the dataset, perform linear regression and plot a graph.
-1. Loading and validating the dataset (CSV file with km and price columns).
-2. Normalizing the mileage data to improve gradient descent performance.
-3. Performing linear regression using gradient descent.
-4. Save the trained parameters theta_0 and theta_1 to a file .txt for future use.
-5. Plotting the actual and predicted prices to visualize the model's performance.
+The model is trained using the following gradient descent formulas to iteratively update the parameters θ₀ and θ₁:
 
------ predict.py will prompt the user for a mileage input, calculate the predicted price based on the learned parameters, and print the result.
-1. Prompt for mileage input (ensuring valid input).
-2. Load the trained model parameters: read theta_0 and theta_1 from the trained_model.txt file.
-3. If no trained model is found, the program should assume theta_0 = 0 and theta_1 = 0.
-4. Use the model to predict the price.
-5. Display the result/price.
-
------precision.py calculates the precision of the price of my model with the actual prices.
-1. Load dataset (actual prices)
-2. Load my trained model (my predict prices)
-3. Calculates the MAE: the average of the absolute differences between the predicted prices and the actual prices in $. Using a single precision metric, such as Mean Absolute Error (MAE) as is a common and straightforward metric that provides a clear measure of the average magnitude of errors in your predictions.
-MAE=1/n ∑_(i=1)^n▒|predictedPrice[i]-actualPrice[i]| 
-
-* -> LINEAR REGRESSION:
-Linear regression is a data analysis technique that predicts the value of unknown data by using another related and known data value.
-
-https://www.ibm.com/think/topics/linear-regression
-What is linear regression?
-Linear regression analysis is used to predict the value of a variable based on the value of another variable. The variable you want to predict is called the dependent variable. The variable you are using to predict the other variable's value is called the independent variable.
-
-More Info: https://en.wikipedia.org/wiki/Linear_regression
-Linear regression is also a type of machine learning algorithm, more specifically a supervised algorithm, that learns from the labelled datasets and maps the data points to the most optimized linear functions that can be used for prediction on new datasets.
-Linear regression plays an important role in the subfield of artificial intelligence known as machine learning. The linear regression algorithm is one of the fundamental supervised machine-learning algorithms due to its relative simplicity and well-known properties.
+tmp_theta_0 = (learningRate / m) * Σ(i=0 to m-1) [(estimatePrice(mileage[i]) - price[i])] 
+tmp_theta_1 = (learningRate / m) * Σ(i=0 to m-1) [(estimatePrice(mileage[i]) - price[i]) * mileage[i]]
 
 
-* -> GRADIENT DESCENT
+Where:
+- m is the total number of data points.
+- `learningRate` is the step size for parameter updates.
 
-https://www.ibm.com/think/topics/gradient-descent
-What is gradient descent?
-Gradient descent is an optimization algorithm which is commonly-used to train machine learning models and neural networks. It trains machine learning models by minimizing errors between predicted and actual results.
-https://www.geeksforgeeks.org/gradient-descent-in-linear-regression/
+---
 
-Gradient Descent Overview
-Gradient descent is an optimization algorithm used to minimize the cost function, in this case, the error between the predicted and actual prices. The goal is to find the optimal values of the parameters 
-theta0 and theta1 that minimize this error.
-Cost Function
-The cost function being minimized in my implementation is based on the Mean Squared Error (MSE), although it simplifies the gradient calculation by not squaring the errors.
+## Programs Overview
+
+### 1. **train.py**
+
+The `train.py` script handles the following tasks:
+
+- **Dataset Loading & Validation:** Reads the dataset (CSV file with `km` and `price` columns) and ensures the data is valid.
+- **Data Normalization:** Applies min-max normalization to the mileage data to improve gradient descent performance.
+- **Gradient Descent Training:** Performs linear regression by iteratively updating θ₀ and θ₁.
+- **Model Saving:** Saves the trained parameters θ₀ and θ₁ to a `.txt` file for later use.
+- **Visualization:** Plots a graph comparing actual prices with predicted prices to evaluate the model’s performance.
+
+### 2. **predict.py**
+
+The `predict.py` script allows the user to input mileage and predicts the corresponding car price:
+
+- **User Input:** Prompts the user to input mileage (ensuring valid input).
+- **Model Loading:** Loads the trained model parameters (θ₀ and θ₁) from the `trained_model.txt` file.
+  - If no trained model is found, it defaults to θ₀ = 0 and θ₁ = 0.
+- **Price Prediction:** Uses the model to predict the price based on the given mileage.
+- **Output:** Displays the predicted price.
+
+### 3. **precision.py**
+
+The `precision.py` script calculates the precision of the model’s predictions by comparing them with actual prices:
+
+- **Dataset Loading:** Loads both the actual prices and the predicted prices.
+- **Precision Calculation:** Computes the Mean Absolute Error (MAE), which measures the average magnitude of errors in the predictions:
+MAE = (1 / n) * Σ(i=1 to n) |predictedPrice[i] - actualPrice[i]|
+
+Where:
+- n is the number of data points.
+
+---
+
+## Concepts & Techniques
+
+### Linear Regression
+
+Linear regression is a statistical method for predicting the value of a dependent variable (e.g., car price) based on one or more independent variables (e.g., mileage). It finds the best-fit line that minimizes the error between predicted and actual values.
+
+- **Linear Regression Formula:** 
+y = θ₀ + (θ₁ × x)
+
+Where:
+- y is the predicted value.
+- θ₀ is the intercept.
+- θ₁ is the slope.
+- x is the independent variable.
+
+For further understanding, see [IBM's Linear Regression Explanation](https://www.ibm.com/think/topics/linear-regression) and the [Wikipedia article on Linear Regression](https://en.wikipedia.org/wiki/Linear_regression).
+
+### Gradient Descent
+
+Gradient descent is an optimization algorithm used to minimize the cost function by iteratively adjusting the model parameters. The goal is to find the optimal values for θ₀ and θ₁ that minimize the error between predicted and actual prices.
+
+For more information, visit [IBM's Gradient Descent Explanation](https://www.ibm.com/think/topics/gradient-descent) and [GeeksforGeeks Gradient Descent in Linear Regression](https://www.geeksforgeeks.org/gradient-descent-in-linear-regression/).
+
+---
+
+### Data Normalization
+
+Normalization is essential for improving the efficiency of gradient descent. By scaling the input features to a similar range (e.g., [0, 1] using min-max normalization), the convergence of gradient descent is faster and more stable.
+
+- **Normalization Formula:** 
+
+Normalized Value = (Value - Min) / (Max - Min)
+
+  
+This ensures that features like mileage are on a similar scale, allowing the gradient descent algorithm to converge more quickly.
+
+---
+
+### Cost Function
+
+In this project, the cost function is based on the Mean Squared Error (MSE) but simplifies the gradient calculation by using an un-squared error. The standard cost function is:
+
+MSE = (1 / m) * Σ(i=1 to m) [(hθ(xᵢ) - yᵢ)²]
 
 
-* -> Why Normalize
-Normalization helps in speeding up the convergence of gradient descent by ensuring that all features are on a similar scale.
-I used Min-Max Normalization
-Scale Consistency:
-Purpose: Min-max normalization scales the mileage data to a range of [0, 1].
-Benefit: This ensures that all features contribute equally to the model training, avoiding dominance by features with larger scales.
-Gradient Descent Efficiency:
-Purpose: Gradient descent algorithms converge faster when the input features are normalized.
-Benefit: Normalized data helps in achieving a more stable and efficient optimization process, leading to faster convergence.
+Where:
+- hθ(xᵢ) is the predicted price.
+- yᵢ is the actual price.
 
-* -> Cost Function
-The implementation of the cost function in the gradient_descent function is based on the Mean Squared Error (MSE) principles as per the formula inside the project subject. However it is not exactly the same as the traditional MSE formula. The formula in the subject is not squared.
-MSE= 1/m  ∑_(i=1)^m▒(h_θ (x^i )-(y^i ))^2 
-MYERROR= 1/m  ∑_(i=1)^m▒(h_θ (x^i )-(y^i )) 
+However, in our implementation, the error function used for gradient descent is not squared.
 
+---
 
-* -> MORE USEFULL INFO ABOUT ML
+## Types of Machine Learning
 
--> Types of Machine Learning
+1. **Supervised Learning:** The algorithm learns from labeled data (input-output pairs).
+   - Common Algorithms: Linear Regression, Logistic Regression, Decision Trees, Neural Networks.
+   - Applications: Predicting prices, spam detection, medical diagnosis.
 
-1. Supervised Learning:
-Definition: The algorithm is trained on a labeled dataset, meaning that each training example is paired with an output label.
-Common Algorithms:
-Linear Regression: Used for predicting a continuous outcome.
-Logistic Regression: Used for binary classification problems.
-Decision Trees: Used for both classification and regression tasks.
-Support Vector Machines (SVM): Used for classification tasks.
-Neural Networks: Used for complex tasks such as image and speech recognition.
-Applications: Predicting house prices, spam detection, image classification, medical diagnosis.
+2. **Unsupervised Learning:** The algorithm finds patterns in data without labeled outputs.
+   - Common Algorithms: K-Means Clustering, PCA, Anomaly Detection.
+   - Applications: Customer segmentation, market basket analysis.
 
-2. Unsupervised Learning:
-Definition: The algorithm is used to find patterns in data without pre-existing labels.
-Common Algorithms:
-K-Means Clustering: Used to partition data into clusters.
-Hierarchical Clustering: Builds a hierarchy of clusters.
-Principal Component Analysis (PCA): Used for dimensionality reduction.
-Anomaly Detection: Identifies unusual data points.
-Applications: Customer segmentation, anomaly detection, market basket analysis.
+3. **Reinforcement Learning:** The algorithm learns by interacting with the environment and receiving rewards/penalties.
+   - Common Algorithms: Q-Learning, Deep Q-Networks (DQN).
+   - Applications: Game playing, robotics.
 
-3. Reinforcement Learning:
-Definition: The algorithm learns by interacting with an environment to achieve a goal. It receives rewards or penalties based on actions taken.
-Common Algorithms:
-Q-Learning: A value-based method for learning policies.
-Deep Q-Networks (DQN): Combines Q-learning with deep neural networks.
-Policy Gradient Methods: Directly optimize the policy.
-Applications: Game playing (e.g., AlphaGo), robotics, autonomous driving.
+4. **Semi-Supervised Learning:** Combines a small amount of labeled data with a large amount of unlabeled data.
+   - Applications: Text classification, image classification with limited labeled data.
 
-4. Semi-Supervised Learning:
-Definition: Combines a small amount of labeled data with a large amount of unlabeled data during training.
-Applications: Text classification, image classification with limited labeled data.
+5. **Self-Supervised Learning:** The data provides the supervision, often used in natural language processing (NLP).
+   - Applications: Language modeling, generative models.
 
-5. Self-Supervised Learning:
-Definition: A form of unsupervised learning where the data provides the supervision. Often used in natural language processing (NLP).
-Applications: Language modeling, generative models.
+---
 
--> Frequency of Use for Linear Regression
-Linear Regression is one of the simplest and most interpretable machine learning algorithms. It is widely used for the following reasons:
-Simplicity: Easy to implement and understand.
-Interpretability: The coefficients provide insights into the relationship between features and the target variable.
-Speed: Very efficient for small to medium-sized datasets.
-Common Use Cases:
-Predicting continuous outcomes like prices, sales, or temperatures.
-Analyzing relationships between variables in exploratory data analysis.
-Despite its simplicity, it remains a valuable tool for many practical applications where interpretability and speed are crucial.
-Limitations: Not suitable for capturing complex relationships in the data.
-Assumes a linear relationship between features and the target variable.
-Conclusion
-While linear regression remains a fundamental and widely-used technique in machine learning, it is often complemented or replaced by more advanced algorithms tailored to specific problems. The choice of algorithm depends on the nature of the problem, the data, and the desired outcome.
+## Conclusion
+
+Linear regression remains a powerful and interpretable tool in machine learning, especially for predicting continuous outcomes like car prices. While it is simple to implement and fast for smaller datasets, it is typically used for problems where a linear relationship exists between variables. More advanced algorithms may be used for capturing more complex relationships or when the problem requires higher accuracy.
+
 
